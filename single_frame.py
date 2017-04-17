@@ -35,16 +35,16 @@ else:
 while True:
     ret, im =cam.read()
     gray=cv2.cvtColor(im,cv2.COLOR_BGR2GRAY)
-    faces=faceCascade.detectMultiScale(gray, 1.2,5)
+    faces=faceCascade.detectMultiScale(gray, 1.3,8)
     for(x,y,w,h) in faces:
         cv2.rectangle(im,(x,y),(x+w,y+h),(225,0,0),2)
         Id, conf = recognizer.predict(gray[y:y+h,x:x+w])
-        if(conf<50):
+        if(conf<65):
             if(Id==1):
                 Id="Saksham"
-            if(Id==8):
-                Id="pandey chu"
-            if(Id==6):
+            if(Id==2):
+                Id="vikas"
+            if(Id==6 or Id==9):
                 Id="Pritish"
             
                 
@@ -62,7 +62,7 @@ while True:
  
 	# resize the frame, blur it, and convert it to the HSV
 	# color space
-    frame = imutils.resize(frame, width=600)
+    frame = imutils.resize(frame, width=640)
     # blurred = cv2.GaussianBlur(frame, (11, 11), 0)
     hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
  
@@ -107,8 +107,8 @@ while True:
         cv2.line(frame, pts[i - 1], pts[i], (0, 0, 255), thickness)
  
 	# show the frame to our screen
-    dst=cv2.add(frame,0.5,im,0.5,0)
-    cv2.imshow("Frame", dst)
+    try1=cv2.addWeighted(frame,0.5,im,0.5,0)
+    cv2.imshow("Frame",try1)
     key = cv2.waitKey(1) & 0xFF
     if cv2.waitKey(10) & 0xFF==ord('q'):
         break
